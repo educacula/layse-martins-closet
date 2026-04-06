@@ -1,6 +1,0 @@
-const CACHE="layse-closet-v4.0.0";
-const ASSETS=["./","./index.html","./manifest.webmanifest","./sw.js","./assets/logo.png","./assets/favicon.png","./assets/icon-192.png","./assets/icon-512.png","./assets/icon-192-maskable.png","./assets/icon-512-maskable.png"];
-self.addEventListener("install",e=>{e.waitUntil((async()=>{const c=await caches.open(CACHE);await c.addAll(ASSETS);await self.skipWaiting();})())});
-self.addEventListener("activate",e=>{e.waitUntil((async()=>{const ks=await caches.keys();await Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim();})())});
-self.addEventListener("fetch",e=>{const u=new URL(e.request.url);const cdn=u.hostname.includes("jsdelivr.net")||u.hostname.includes("cdnjs.cloudflare.com");if(cdn){e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));return;}
-e.respondWith((async()=>{const c=await caches.match(e.request);if(c)return c;try{const r=await fetch(e.request);const ca=await caches.open(CACHE);ca.put(e.request,r.clone());return r;}catch{return caches.match("./index.html");}})())});
