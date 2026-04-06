@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<title>Layse Martins Closet V5 PRO</title>
+<title>Layse Martins Closet V6 PRO</title>
 <link rel="manifest" href="manifest.webmanifest"/>
 <link rel="icon" href="assets/favicon.png"/>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -71,7 +71,7 @@ button{touch-action:manipulation}
     <div class="hero rounded-[28px] p-5 mb-4 shadow-soft">
       <div class="flex items-start justify-between gap-3">
         <div>
-          <p class="text-xs uppercase tracking-[.24em] text-zinc-300">V5 PRO</p>
+          <p class="text-xs uppercase tracking-[.24em] text-zinc-300">V6 PRO</p>
           <h2 class="text-2xl font-black mt-1">Sua loja sob controle</h2>
           <p class="text-sm text-zinc-300 mt-1">Estoque, vendas, lucro e etiquetas em um só lugar.</p>
         </div>
@@ -108,7 +108,7 @@ button{touch-action:manipulation}
         <h3 class="section-title">Ações rápidas</h3>
         <button class="text-xs gold font-bold" data-nav="relatorios">Ver relatórios</button>
       </div>
-      <div class="grid grid-cols-4 gap-2">
+      <div class="grid grid-cols-5 gap-2">
         <button id="qa-entrada" class="flex flex-col items-center gap-1 p-2 rounded-2xl hover:bg-zinc-50">
           <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-700"><i class="fas fa-arrow-down"></i></div><span class="text-xs">Entrada</span>
         </button>
@@ -117,6 +117,9 @@ button{touch-action:manipulation}
         </button>
         <button id="qa-produto" class="flex flex-col items-center gap-1 p-2 rounded-2xl hover:bg-zinc-50">
           <div class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center"><i class="fas fa-plus"></i></div><span class="text-xs">Produto</span>
+        </button>
+        <button id="qa-provas" class="flex flex-col items-center gap-1 p-2 rounded-2xl hover:bg-zinc-50">
+          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700"><i class="fas fa-bag-shopping"></i></div><span class="text-xs">Provas</span>
         </button>
         <button id="qa-etiqueta" class="flex flex-col items-center gap-1 p-2 rounded-2xl hover:bg-zinc-50">
           <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-700"><i class="fas fa-tag"></i></div><span class="text-xs">Etiqueta</span>
@@ -233,6 +236,25 @@ button{touch-action:manipulation}
     </div>
   </section>
 
+  <section id="view-provas" class="hidden fade-in">
+    <div class="card-dark rounded-[28px] p-4 mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="section-title text-white">Provas / Enviados</h3>
+          <p class="text-xs text-zinc-300 mt-1">Prazo médio recomendado: 3 dias</p>
+        </div>
+        <button id="btn-nova-prova" class="px-4 py-2 rounded-2xl bg-white text-black font-semibold"><i class="fas fa-plus mr-1"></i>Novo envio</button>
+      </div>
+    </div>
+    <div class="card p-4 mb-4">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="section-title">Pendentes</h3>
+        <span class="text-xs text-zinc-500" id="provas-resumo">0 pendentes</span>
+      </div>
+      <div id="lista-provas" class="space-y-3"></div>
+    </div>
+  </section>
+
   <section id="view-mais" class="hidden fade-in">
     <div class="card p-4 mb-4">
       <h3 class="section-title mb-3">Backup</h3>
@@ -244,16 +266,17 @@ button{touch-action:manipulation}
       </div>
     </div>
     <div class="card p-4 mb-4">
-      <h3 class="section-title mb-3">Atalhos V4</h3>
+      <h3 class="section-title mb-3">Atalhos V6</h3>
       <div class="grid grid-cols-2 gap-2">
         <button class="p-3 rounded-2xl border text-left" data-nav="relatorios"><i class="fas fa-chart-simple mr-2 gold"></i>Ranking + ticket</button>
         <button id="btn-abrir-etiqueta" class="p-3 rounded-2xl border text-left"><i class="fas fa-tag mr-2 gold"></i>Gerar etiqueta</button>
+        <button id="btn-abrir-provas" class="p-3 rounded-2xl border text-left"><i class="fas fa-bag-shopping mr-2 gold"></i>Provas</button>
       </div>
     </div>
     <div class="card p-4 mb-4">
       <h3 class="section-title mb-2">Informações</h3>
       <div class="space-y-2 text-sm">
-        <div class="flex justify-between"><span class="text-zinc-600">Versão</span><span class="font-semibold" id="app-versao">5.0.0</span></div>
+        <div class="flex justify-between"><span class="text-zinc-600">Versão</span><span class="font-semibold" id="app-versao">6.0.0</span></div>
         <div class="flex justify-between"><span class="text-zinc-600">Produtos</span><span class="font-semibold" id="stat-prod">0</span></div>
         <div class="flex justify-between"><span class="text-zinc-600">Movimentações</span><span class="font-semibold" id="stat-mov">0</span></div>
         <div class="flex justify-between"><span class="text-zinc-600">Financeiro</span><span class="font-semibold" id="stat-fin">0</span></div>
@@ -268,6 +291,7 @@ button{touch-action:manipulation}
   <button class="nav-item active" data-nav="dashboard" id="nav-dashboard"><i class="fas fa-house"></i><span>Início</span></button>
   <button class="nav-item" data-nav="produtos" id="nav-produtos"><i class="fas fa-box"></i><span>Produtos</span></button>
   <button class="nav-item" data-nav="estoque" id="nav-estoque"><i class="fas fa-warehouse"></i><span>Estoque</span></button>
+  <button class="nav-item" data-nav="provas" id="nav-provas"><i class="fas fa-bag-shopping"></i><span>Provas</span></button>
   <button class="nav-item" data-nav="financeiro" id="nav-financeiro"><i class="fas fa-wallet"></i><span>Financeiro</span></button>
   <button class="nav-item" data-nav="mais" id="nav-mais"><i class="fas fa-gear"></i><span>Mais</span></button>
 </div></nav>
@@ -417,10 +441,45 @@ button{touch-action:manipulation}
   </div>
 </div></div>
 
+<div id="modal-prova" class="modal"><div class="modal-content">
+  <div class="p-4 border-b flex justify-between items-center sticky top-0 bg-white"><h3 class="font-extrabold text-lg">Enviar peças para prova</h3><button data-close="modal-prova" class="w-8 h-8 rounded-full hover:bg-zinc-100"><i class="fas fa-times"></i></button></div>
+  <form id="form-prova" class="p-4 space-y-4">
+    <div><label class="block text-sm font-medium text-zinc-700 mb-1">Cliente</label><input id="prova-cliente" class="w-full p-3 rounded-2xl border" placeholder="Nome do cliente" required></div>
+    <div id="prova-itens" class="space-y-3"></div>
+    <button type="button" id="btn-add-item-prova" class="w-full p-3 rounded-2xl border gold-border font-semibold"><i class="fas fa-plus mr-1"></i>Adicionar peça</button>
+    <button class="w-full p-4 rounded-2xl bg-black text-white font-extrabold text-lg">Enviar para prova</button>
+  </form>
+</div></div>
+
+<div id="modal-gerenciar-prova" class="modal"><div class="modal-content">
+  <div class="p-4 border-b flex justify-between items-center sticky top-0 bg-white"><h3 class="font-extrabold text-lg">Gerenciar retorno da prova</h3><button data-close="modal-gerenciar-prova" class="w-8 h-8 rounded-full hover:bg-zinc-100"><i class="fas fa-times"></i></button></div>
+  <div class="p-4 space-y-4">
+    <div id="ger-prova-header" class="text-sm text-zinc-600"></div>
+    <div id="ger-prova-itens" class="space-y-3"></div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="block text-sm font-medium text-zinc-700 mb-1">Pagamento</label><select id="gp-pag" class="w-full p-3 rounded-2xl border bg-white"><option>Pix</option><option>Dinheiro</option><option>Ton</option><option>Moderninha</option></select></div>
+      <div><label class="block text-sm font-medium text-zinc-700 mb-1">Parcelas</label><select id="gp-parcelas" class="w-full p-3 rounded-2xl border bg-white"><option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="7">7x</option><option value="8">8x</option><option value="9">9x</option><option value="10">10x</option><option value="11">11x</option><option value="12">12x</option></select></div>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="block text-sm font-medium text-zinc-700 mb-1">Desconto</label><div class="flex gap-2"><select id="gp-desc-tipo" class="w-24 p-3 rounded-2xl border bg-white"><option value="valor">R$</option><option value="percent">% </option></select><input id="gp-desc-valor" type="number" step="0.01" min="0" value="0" class="flex-1 p-3 rounded-2xl border"></div></div>
+      <div><label class="block text-sm font-medium text-zinc-700 mb-1">Canal</label><select id="gp-canal" class="w-full p-3 rounded-2xl border bg-white"><option>WhatsApp</option><option>Instagram</option><option>Loja física</option></select></div>
+    </div>
+    <div class="rounded-2xl bg-zinc-50 p-3">
+      <div class="flex justify-between text-sm"><span class="text-zinc-600">Subtotal vendido</span><span class="font-bold" id="gp-subtotal">R$ 0,00</span></div>
+      <div class="flex justify-between text-sm mt-1"><span class="text-zinc-600">Desconto</span><span class="font-bold text-amber-700" id="gp-desconto">R$ 0,00</span></div>
+      <div class="flex justify-between text-sm mt-1"><span class="text-zinc-600">Taxa máquina</span><span class="font-bold text-red-700" id="gp-taxa">R$ 0,00</span></div>
+      <div class="flex justify-between text-sm mt-1"><span class="text-zinc-600">Total cliente</span><span class="font-bold" id="gp-total">R$ 0,00</span></div>
+      <div class="flex justify-between text-sm mt-1"><span class="text-zinc-600">Lucro real</span><span class="font-bold text-green-700" id="gp-lucro">R$ 0,00</span></div>
+    </div>
+    <button id="btn-confirmar-ger-prova" class="w-full p-4 rounded-2xl bg-black text-white font-extrabold text-lg">Finalizar prova</button>
+  </div>
+</div></div>
+
 <div id="menu" class="fixed top-16 right-3 z-[120] hidden">
   <div class="bg-white rounded-2xl shadow-lg overflow-hidden border gold-border min-w-[210px]">
     <button class="w-full text-left px-4 py-3 hover:bg-zinc-50" id="menu-ir-relatorios"><i class="fas fa-chart-simple mr-2 gold"></i>Relatórios</button>
     <button class="w-full text-left px-4 py-3 hover:bg-zinc-50" id="menu-etiqueta"><i class="fas fa-tag mr-2 gold"></i>Etiquetas</button>
+    <button class="w-full text-left px-4 py-3 hover:bg-zinc-50" id="menu-provas"><i class="fas fa-bag-shopping mr-2 gold"></i>Provas</button>
     <button class="w-full text-left px-4 py-3 hover:bg-zinc-50" id="menu-exportar"><i class="fas fa-download mr-2 text-green-700"></i>Exportar</button>
   </div>
 </div>
@@ -428,14 +487,15 @@ button{touch-action:manipulation}
 <div id="toast" class="toast"></div>
 
 <script>
-const LS={produtos:"lmc_v5_produtos",movs:"lmc_v5_movs",fin:"lmc_v5_fin",clientes:"lmc_v5_clientes",lastBackup:"lmc_v5_backup",version:"lmc_v5_version"};
-const APP_VERSION="5.0.0";
+const LS={produtos:"lmc_v6_produtos",movs:"lmc_v6_movs",fin:"lmc_v6_fin",clientes:"lmc_v6_clientes",provas:"lmc_v6_provas",lastBackup:"lmc_v6_backup",version:"lmc_v6_version"};
+const APP_VERSION="6.0.0";
 const TAXAS={Ton:{1:3.19,2:4.59,3:4.99,4:5.29,5:5.49,6:5.59,7:5.99,8:6.39,9:6.79,10:7.19,11:7.59,12:9.79},Moderninha:{1:3.99,2:5.59,3:5.99,4:6.49,5:6.99,6:7.99,7:8.79,8:9.39,9:10.39,10:11.39,11:12.39,12:13.99}};
 localStorage.setItem(LS.version,APP_VERSION);
 let produtos=JSON.parse(localStorage.getItem(LS.produtos)||"[]");
 let movimentacoes=JSON.parse(localStorage.getItem(LS.movs)||"[]");
 let financeiro=JSON.parse(localStorage.getItem(LS.fin)||"[]");
 let clientes=JSON.parse(localStorage.getItem(LS.clientes)||"[]");
+let provas=JSON.parse(localStorage.getItem(LS.provas)||"[]");
 if(produtos.length===0){
   produtos=[
     {id:Date.now(),sku:"CAM-001",nome:"Camiseta Básica",categoria:"Camisetas",preco:49.90,custo:25.00,estoque:{PP:2,P:5,M:8,G:4,GG:1}},
@@ -448,7 +508,7 @@ const fmt=v=>(v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const hojeStr=()=>new Date().toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"short"});
 const nowISO=()=>new Date().toISOString();
 let chartVendas=null,chartFin=null,scanStream=null,scanTimer=null,scanTarget=null,barcodeDetector=null;
-function salvarTudo(){localStorage.setItem(LS.produtos,JSON.stringify(produtos));localStorage.setItem(LS.movs,JSON.stringify(movimentacoes));localStorage.setItem(LS.fin,JSON.stringify(financeiro));localStorage.setItem(LS.clientes,JSON.stringify(clientes));}
+function salvarTudo(){localStorage.setItem(LS.produtos,JSON.stringify(produtos));localStorage.setItem(LS.movs,JSON.stringify(movimentacoes));localStorage.setItem(LS.fin,JSON.stringify(financeiro));localStorage.setItem(LS.clientes,JSON.stringify(clientes));localStorage.setItem(LS.provas,JSON.stringify(provas));}
 function showToast(msg,type="ok"){const t=byId("toast");t.textContent=msg;t.style.background=type==="err"?"#ef4444":type==="info"?"#3b82f6":"#111827";t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
 function openModal(id){byId(id).classList.add("active")}
 function closeModal(id){byId(id).classList.remove("active")}
@@ -461,6 +521,7 @@ function showSection(sec){
   if(sec==="produtos")renderProdutos();
   if(sec==="estoque")renderEstoque();
   if(sec==="financeiro")renderFinanceiro();
+  if(sec==="provas")renderProvas();
   if(sec==="relatorios")renderRelatorios();
   if(sec==="mais")renderMais();
   window.scrollTo({top:0,behavior:"smooth"});
@@ -574,6 +635,126 @@ function renderMais(){
 }
 function fillSelectProdutos(selectEl){selectEl.innerHTML='<option value="">Selecione...</option>'+produtos.map(p=>`<option value="${p.id}">${p.nome} (${p.sku})</option>`).join("")}
 function fillTamanhosFromProduto(p,selectEl){const opts=Object.entries(p.estoque||{}).filter(([t,q])=>(q||0)>0).map(([t,q])=>`<option value="${t}">${t} (${q})</option>`).join(""); selectEl.innerHTML=opts||'<option value="">Sem estoque</option>';}
+function diasDesde(data){return Math.floor((Date.now()-new Date(data).getTime())/(1000*60*60*24));}
+function statusProvaLabel(prova){if(prova.status==="finalizado") return "Finalizado"; const dias=diasDesde(prova.dataEnvio); return dias>3?`Pendente • ${dias} dias`: `Pendente • ${dias} dias`;}
+function addItemProvaRow(item=null){
+  const wrap=document.createElement("div");
+  wrap.className="p-3 border rounded-2xl prova-item";
+  wrap.innerHTML=`<div class="grid grid-cols-12 gap-2 items-end">
+    <div class="col-span-6"><label class="block text-xs text-zinc-500 mb-1">Produto</label><select class="pi-produto w-full p-3 rounded-2xl border bg-white"></select></div>
+    <div class="col-span-3"><label class="block text-xs text-zinc-500 mb-1">Tamanho</label><select class="pi-tam w-full p-3 rounded-2xl border bg-white"></select></div>
+    <div class="col-span-2"><label class="block text-xs text-zinc-500 mb-1">Qtd</label><input type="number" min="1" value="1" class="pi-qtd w-full p-3 rounded-2xl border"></div>
+    <div class="col-span-1"><button type="button" class="pi-remover w-full p-3 rounded-2xl bg-red-50 text-red-700"><i class="fas fa-trash"></i></button></div>
+  </div>`;
+  const sel=wrap.querySelector(".pi-produto");
+  fillSelectProdutos(sel);
+  if(item && item.produtoId) sel.value=String(item.produtoId);
+  const updateTam=()=>{const p=produtos.find(x=>x.id===parseInt(sel.value)); const tamSel=wrap.querySelector(".pi-tam"); if(!p){tamSel.innerHTML='<option value="">...</option>'; return;} fillTamanhosFromProduto(p,tamSel); if(item && item.tamanho){tamSel.value=item.tamanho; item=null;}};
+  sel.addEventListener("change", updateTam); updateTam();
+  if(item && item.qtd) wrap.querySelector(".pi-qtd").value=item.qtd;
+  wrap.querySelector(".pi-remover").addEventListener("click",()=>wrap.remove());
+  byId("prova-itens").appendChild(wrap);
+}
+function openProvaModal(){byId("form-prova").reset(); byId("prova-itens").innerHTML=""; addItemProvaRow(); openModal("modal-prova");}
+function renderProvas(){
+  const pend=provas.filter(p=>p.status!=="finalizado");
+  byId("provas-resumo").textContent=`${pend.length} pendentes`;
+  byId("lista-provas").innerHTML=[...provas].sort((a,b)=>new Date(b.dataEnvio)-new Date(a.dataEnvio)).map(p=>{
+    const dias=diasDesde(p.dataEnvio);
+    const pendente=p.status!=="finalizado";
+    const atraso=pendente && dias>3;
+    const itens=(p.itens||[]).map(i=>`${i.nome} ${i.tamanho} x${i.qtd}`).join(" • ");
+    const badge=pendente?(atraso?`<span class="badge badge-danger">Atrasado ${dias}d</span>`:`<span class="badge badge-warning">Pendente ${dias}d</span>`):`<span class="badge badge-success">Finalizado</span>`;
+    return `<div class="p-4 rounded-2xl border ${atraso?'border-red-300 bg-red-50':'bg-white'}">
+      <div class="flex items-start justify-between gap-3">
+        <div><div class="font-extrabold">${p.cliente}</div><div class="text-xs text-zinc-500">${new Date(p.dataEnvio).toLocaleDateString("pt-BR")} • ${p.itens.length} item(ns)</div></div>${badge}
+      </div>
+      <div class="text-sm text-zinc-600 mt-2">${itens||''}</div>
+      <div class="flex gap-2 mt-3">
+        ${pendente?`<button class="flex-1 p-3 rounded-2xl bg-black text-white font-semibold btn-ger-prova" data-id="${p.id}">Gerenciar retorno</button>`:''}
+      </div>
+    </div>`;
+  }).join("")||'<p class="text-center text-zinc-400 py-10">Nenhuma prova registrada.</p>';
+  document.querySelectorAll(".btn-ger-prova").forEach(btn=>btn.addEventListener("click",()=>openGerenciarProva(parseInt(btn.dataset.id))));
+}
+let provaAtualId=null;
+function openGerenciarProva(id){
+  provaAtualId=id;
+  const p=provas.find(x=>x.id===id); if(!p) return;
+  byId("ger-prova-header").innerHTML=`<b>${p.cliente}</b> • enviado em ${new Date(p.dataEnvio).toLocaleDateString("pt-BR")} • prazo médio 3 dias`;
+  const cont=byId("ger-prova-itens");
+  cont.innerHTML=(p.itens||[]).map((it,idx)=>`<div class="p-3 border rounded-2xl gp-item" data-idx="${idx}">
+    <div class="font-semibold">${it.nome} • ${it.tamanho}</div>
+    <div class="text-xs text-zinc-500 mb-2">Enviado: ${it.qtd} un</div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="block text-xs text-zinc-500 mb-1">Ação</label><select class="gp-acao w-full p-3 rounded-2xl border bg-white"><option value="vender">Vender</option><option value="devolver">Devolver</option><option value="manter">Manter pendente</option></select></div>
+      <div><label class="block text-xs text-zinc-500 mb-1">Qtd</label><input type="number" min="0" max="${it.qtd}" value="${it.qtd}" class="gp-qtd w-full p-3 rounded-2xl border"></div>
+    </div>
+  </div>`).join("");
+  ["gp-pag","gp-parcelas","gp-desc-tipo","gp-desc-valor","gp-canal"].forEach(id=>byId(id).addEventListener(id==="gp-desc-valor"?"input":"change",updateGerProvaResumo,{once:true}));
+  cont.querySelectorAll(".gp-acao,.gp-qtd").forEach(el=>el.addEventListener(el.classList.contains("gp-qtd")?"input":"change",updateGerProvaResumo));
+  updateGerProvaResumo();
+  openModal("modal-gerenciar-prova");
+}
+function updateGerProvaResumo(){
+  const p=provas.find(x=>x.id===provaAtualId); if(!p) return;
+  let subtotal=0, cmv=0;
+  document.querySelectorAll("#ger-prova-itens .gp-item").forEach(row=>{
+    const idx=parseInt(row.dataset.idx); const acao=row.querySelector(".gp-acao").value; const qtd=Math.max(0,Math.min(parseInt(row.querySelector(".gp-qtd").value||"0"), p.itens[idx].qtd));
+    if(acao==="vender" && qtd>0){subtotal += (p.itens[idx].preco||0)*qtd; cmv += (p.itens[idx].custo||0)*qtd;}
+  });
+  const tipo=byId("gp-desc-tipo").value; const descVal=parseFloat(byId("gp-desc-valor").value||"0");
+  let desconto=tipo==="percent" ? subtotal*(descVal/100) : descVal;
+  if(desconto<0) desconto=0; if(desconto>subtotal) desconto=subtotal;
+  const total=subtotal-desconto;
+  const pag=byId("gp-pag").value; const parc=parseInt(byId("gp-parcelas").value||"1");
+  const taxaPct=(TAXAS[pag]&&TAXAS[pag][parc])?TAXAS[pag][parc]:0;
+  const taxa=total*(taxaPct/100);
+  const lucro=(total-taxa)-cmv;
+  byId("gp-subtotal").textContent=fmt(subtotal);
+  byId("gp-desconto").textContent=fmt(desconto);
+  byId("gp-taxa").textContent=fmt(taxa);
+  byId("gp-total").textContent=fmt(total);
+  byId("gp-lucro").textContent=fmt(lucro);
+}
+function finalizarProva(){
+  const p=provas.find(x=>x.id===provaAtualId); if(!p) return;
+  let subtotal=0, desconto=0, taxa=0, total=0, cmv=0, cliente=p.cliente;
+  const tipoDesc=byId("gp-desc-tipo").value; const descVal=parseFloat(byId("gp-desc-valor").value||"0");
+  const pagamento=byId("gp-pag").value; const parcelas=parseInt(byId("gp-parcelas").value||"1"); const canal=byId("gp-canal").value;
+  const remaining=[];
+  document.querySelectorAll("#ger-prova-itens .gp-item").forEach(row=>{
+    const idx=parseInt(row.dataset.idx); const acao=row.querySelector(".gp-acao").value; const qtd=Math.max(0,Math.min(parseInt(row.querySelector(".gp-qtd").value||"0"), p.itens[idx].qtd)); const item=p.itens[idx];
+    const sobra=item.qtd-qtd;
+    if(acao==="vender" && qtd>0){
+      const sub=(item.preco||0)*qtd; subtotal+=sub; cmv+=(item.custo||0)*qtd;
+      movimentacoes.push({id:Date.now()+Math.floor(Math.random()*1000),data:nowISO(),tipo:"saida",motivo:"venda_prova",produto:item.nome,produtoId:item.produtoId,tamanho:item.tamanho,qtd,canal,cliente,subtotal:sub,pagamento,parcelas});
+      clientes.push({id:Date.now()+Math.floor(Math.random()*1000),nome:cliente||"Cliente sem nome",produto:item.nome,total:sub,pagamento,canal,data:nowISO()});
+      if(sobra>0) remaining.push({...item,qtd:sobra});
+    }else if(acao==="devolver" && qtd>0){
+      const prod=produtos.find(x=>x.id===item.produtoId); if(prod){prod.estoque[item.tamanho]=(prod.estoque[item.tamanho]||0)+qtd;}
+      movimentacoes.push({id:Date.now()+Math.floor(Math.random()*1000),data:nowISO(),tipo:"entrada",produto:item.nome,produtoId:item.produtoId,tamanho:item.tamanho,qtd,ref:`Devolução prova - ${cliente}`});
+      if(sobra>0) remaining.push({...item,qtd:sobra});
+    }else{
+      remaining.push(item);
+    }
+  });
+  desconto=tipoDesc==="percent" ? subtotal*(descVal/100) : descVal;
+  if(desconto<0) desconto=0; if(desconto>subtotal) desconto=subtotal;
+  total=subtotal-desconto;
+  const taxaPct=(TAXAS[pagamento]&&TAXAS[pagamento][parcelas])?TAXAS[pagamento][parcelas]:0;
+  taxa=total*(taxaPct/100);
+  const recebido=total-taxa;
+  if(total>0){
+    financeiro.push({id:Date.now(),data:nowISO(),tipo:"receita",valor:recebido,valorBruto:total,descricao:`Venda prova: ${cliente}`,canal,pagamento,cliente,parcelas});
+    financeiro.push({id:Date.now()+1,data:nowISO(),tipo:"custo",valor:cmv,descricao:`CMV prova: ${cliente}`,canal,pagamento,cliente,parcelas});
+    if(taxa>0){financeiro.push({id:Date.now()+2,data:nowISO(),tipo:"despesa",valor:taxa,categoria:"Taxa maquininha",descricao:`Taxa ${pagamento} ${parcelas}x - prova`,canal,pagamento,cliente});}
+  }
+  p.itens=remaining;
+  p.status=remaining.length===0 ? "finalizado" : "pendente";
+  p.dataFinalizacao=remaining.length===0 ? nowISO() : null;
+  salvarTudo(); closeModal("modal-gerenciar-prova"); showToast("Prova atualizada!"); showSection("provas");
+}
 function openProdutoModal(p=null){
   byId("form-produto").reset();
   byId("prod-id").value=p?p.id:"";
@@ -645,7 +826,7 @@ function calcularPrecoIdeal(){
 }
 
 function exportarBackup(){
-  const dados={versao:APP_VERSION,exportado_em:nowISO(),produtos,movimentacoes,financeiro,clientes};
+  const dados={versao:APP_VERSION,exportado_em:nowISO(),produtos,movimentacoes,financeiro,clientes,provas};
   const blob=new Blob([JSON.stringify(dados,null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob);
   const a=document.createElement("a");
@@ -661,7 +842,7 @@ function importarBackup(e){
   reader.onload=()=>{try{
     const dados=JSON.parse(reader.result);
     if(!confirm(`Restaurar backup?\n\nVersão: ${dados.versao}\nProdutos: ${dados.produtos?.length||0}\nMov.: ${dados.movimentacoes?.length||0}\nFinanceiro: ${dados.financeiro?.length||0}`)) return;
-    produtos=dados.produtos||[]; movimentacoes=dados.movimentacoes||[]; financeiro=dados.financeiro||[]; clientes=dados.clientes||[];
+    produtos=dados.produtos||[]; movimentacoes=dados.movimentacoes||[]; financeiro=dados.financeiro||[]; clientes=dados.clientes||[]; provas=dados.provas||[];
     salvarTudo(); showToast("Backup restaurado!"); showSection("dashboard");
   }catch{showToast("Arquivo inválido","err")}};
   reader.readAsText(file); e.target.value="";
@@ -695,6 +876,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   byId("qa-entrada").addEventListener("click",openEntradaModal);
   byId("qa-venda").addEventListener("click",()=>openVendaModal());
   byId("qa-produto").addEventListener("click",()=>openProdutoModal());
+  byId("qa-provas").addEventListener("click",()=>showSection("provas"));
   byId("qa-etiqueta").addEventListener("click",openEtiquetaModal);
   byId("btn-novo-produto").addEventListener("click",()=>openProdutoModal());
   byId("btn-scan-produto").addEventListener("click",()=>startScanner("produto_sku"));
@@ -719,6 +901,28 @@ document.addEventListener("DOMContentLoaded",()=>{
     p.estoque[tam]=(p.estoque[tam]||0)+qtd;
     movimentacoes.push({id:Date.now(),data:nowISO(),tipo:"entrada",produto:p.nome,produtoId:pid,tamanho:tam,qtd,ref});
     salvarTudo(); closeModal("modal-entrada"); showToast("Entrada registrada!"); showSection("dashboard");
+  });
+  byId("form-prova").addEventListener("submit",(e)=>{
+    e.preventDefault();
+    const cliente=(byId("prova-cliente").value||"").trim();
+    if(!cliente) return showToast("Informe o cliente","err");
+    const itens=[];
+    const rows=document.querySelectorAll("#prova-itens .prova-item");
+    if(!rows.length) return showToast("Adicione pelo menos uma peça","err");
+    for(const row of rows){
+      const pid=parseInt(row.querySelector(".pi-produto").value);
+      const tam=row.querySelector(".pi-tam").value;
+      const qtd=parseInt(row.querySelector(".pi-qtd").value||"0");
+      const prod=produtos.find(x=>x.id===pid);
+      if(!prod || !tam || qtd<=0) continue;
+      if((prod.estoque[tam]||0)<qtd) return showToast(`Estoque insuficiente de ${prod.nome} ${tam}`,"err");
+      prod.estoque[tam]-=qtd;
+      itens.push({produtoId:prod.id,nome:prod.nome,tamanho:tam,qtd,preco:prod.preco,custo:prod.custo});
+      movimentacoes.push({id:Date.now()+Math.floor(Math.random()*1000),data:nowISO(),tipo:"saida",motivo:"prova",produto:prod.nome,produtoId:prod.id,tamanho:tam,qtd,cliente,ref:"Enviado para prova"});
+    }
+    if(!itens.length) return showToast("Adicione itens válidos","err");
+    provas.push({id:Date.now(),cliente,itens,status:"pendente",dataEnvio:nowISO(),prazoDias:3});
+    salvarTudo(); closeModal("modal-prova"); showToast("Peças enviadas para prova!"); showSection("provas");
   });
   byId("ven-produto").addEventListener("change",updateVendaDetails);
   byId("ven-qtd").addEventListener("input",updateVendaDetails);
@@ -763,6 +967,10 @@ document.addEventListener("DOMContentLoaded",()=>{
   byId("btn-gerar-etiqueta").addEventListener("click",(e)=>{e.preventDefault(); gerarEtiqueta()});
   byId("btn-imprimir-etiqueta").addEventListener("click",(e)=>{e.preventDefault(); window.print()});
   byId("btn-abrir-etiqueta").addEventListener("click",openEtiquetaModal);
+  const btnAbrirProvas=byId("btn-abrir-provas"); if(btnAbrirProvas) btnAbrirProvas.addEventListener("click",()=>showSection("provas"));
+  const btnNovaProva=byId("btn-nova-prova"); if(btnNovaProva) btnNovaProva.addEventListener("click",openProvaModal);
+  const btnAddItemProva=byId("btn-add-item-prova"); if(btnAddItemProva) btnAddItemProva.addEventListener("click",()=>addItemProvaRow());
+  const btnConfGer=byId("btn-confirmar-ger-prova"); if(btnConfGer) btnConfGer.addEventListener("click",finalizarProva);
   byId("btn-exportar").addEventListener("click",exportarBackup);
   byId("btn-importar").addEventListener("click",()=>byId("input-import").click());
   byId("input-import").addEventListener("change",importarBackup);
@@ -775,6 +983,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.addEventListener("click",(e)=>{if(!e.target.closest("#menu")&&!e.target.closest("#btn-menu")) menu.classList.add("hidden")});
   byId("menu-ir-relatorios").addEventListener("click",()=>{menu.classList.add("hidden"); showSection("relatorios")});
   byId("menu-etiqueta").addEventListener("click",()=>{menu.classList.add("hidden"); openEtiquetaModal()});
+  const menuProvas=byId("menu-provas"); if(menuProvas) menuProvas.addEventListener("click",()=>{menu.classList.add("hidden"); showSection("provas")});
   byId("menu-exportar").addEventListener("click",()=>{menu.classList.add("hidden"); exportarBackup()});
   byId("app-versao").textContent=APP_VERSION;
   showSection("dashboard");
