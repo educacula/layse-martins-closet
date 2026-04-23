@@ -49,11 +49,29 @@ btn.addEventListener("click", async () => {
 async function carregar() {
   lista.innerHTML = "";
   const querySnapshot = await getDocs(collection(db, "produtos"));
+
   querySnapshot.forEach(doc => {
-    const li = document.createElement("div");
-    li.className = "p-2 border";
-    li.innerText = doc.data().nome;
-    lista.appendChild(li);
+    const item = doc.data();
+
+    const div = document.createElement("div");
+    div.style = "display:flex;justify-content:space-between;align-items:center;border:1px solid #ccc;padding:8px;margin-bottom:5px;border-radius:8px;";
+
+    const span = document.createElement("span");
+    span.innerText = item.nome;
+
+    const btn = document.createElement("button");
+    btn.innerText = "Excluir";
+    btn.style = "background:red;color:white;border:none;padding:5px 10px;border-radius:5px;";
+
+    btn.onclick = async () => {
+      await deleteDoc(doc.ref);
+      carregar();
+    };
+
+    div.appendChild(span);
+    div.appendChild(btn);
+
+    lista.appendChild(div);
   });
 }
 
