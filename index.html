@@ -9,13 +9,13 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB17j6xYMVnX20OW2Cgb5ibO5I52g4zA4E",
   authDomain: "casa-financeira-ae08e.firebaseapp.com",
   projectId: "casa-financeira-ae08e",
-  storageBucket: "casa-financeira-ae08e.firebasestorage.app",
+  storageBucket: "casa-financeira-ae08e.appspot.com",
   messagingSenderId: "586081436813",
   appId: "1:586081436813:web:df04229f1287dd2806cec4"
 };
@@ -23,33 +23,41 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let produtos = [];
+const input = document.getElementById("nome");
+const btn = document.querySelector("button");
+const lista = document.getElementById("lista");
 
-async function salvarNuvem(){
-  await setDoc(doc(db,"loja","dados"),{produtos});
+btn.addEventListener("click", async () => {
+  const nome = input.value.trim();
+  if (!nome) return;
+
+  btn.innerText = "Salvando...";
+  btn.disabled = true;
+
+  await addDoc(collection(db, "produtos"), {
+    nome: nome,
+    criado: new Date()
+  });
+
+  input.value = "";
+  btn.innerText = "Adicionar";
+  btn.disabled = false;
+
+  carregar();
+});
+
+async function carregar() {
+  lista.innerHTML = "";
+  const querySnapshot = await getDocs(collection(db, "produtos"));
+  querySnapshot.forEach(doc => {
+    const li = document.createElement("div");
+    li.className = "p-2 border";
+    li.innerText = doc.data().nome;
+    lista.appendChild(li);
+  });
 }
 
-async function carregarNuvem(){
-  const snap = await getDoc(doc(db,"loja","dados"));
-  if(snap.exists()){
-    produtos = snap.data().produtos || [];
-    render();
-  }
-}
-
-function adicionarProduto(){
-  const nome = document.getElementById("nome").value;
-  produtos.push({nome});
-  salvarNuvem();
-  render();
-}
-
-function render(){
-  const lista = document.getElementById("lista");
-  lista.innerHTML = produtos.map(p=>`<div class="p-2 border">${p.nome}</div>`).join("");
-}
-
-window.onload = carregarNuvem;
+carregar();
 </script>
 
 </head>
